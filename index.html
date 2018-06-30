@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCC3dtSD-TJWA3WqMUqUFw3Vg6KcZQGtOg",
+        authDomain: "irfan-resume.firebaseapp.com",
+        databaseURL: "https://irfan-resume.firebaseio.com",
+        projectId: "irfan-resume",
+        storageBucket: "irfan-resume.appspot.com",
+        messagingSenderId: "677618777073"
+    };
+    firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+
+    <h1>ID / Pass Authenticate</h1>
+    <button onclick="addUser()"> sign up </button>
+    <button onclick="signIn()"> sign in </button>
+    <button onclick="signout()"> sign out </button>
+
+    <script>
+        function addUser(){
+            firebase.auth().createUserWithEmailAndPassword("email@admin.com", "password")
+            .then(function (successs) {
+                console.log("success signup");
+                alert("sign up Successfully");
+            })
+            .catch(function (error) {
+                console.log("sign up error", error);
+                alert("sign up error")
+            })
+        }
+
+        function signIn(){
+            firebase.auth().signInWithEmailAndPassword("email@admin.com", "password")
+            .then(function (successs) {
+                console.log("success signin");
+                alert("sign in Successfully");
+            })
+            .catch(function (error) {
+                console.log("signin Error", error);
+                alert("sign in error")
+            })
+        }
+
+        function signout() {
+            firebase.auth().signOut().then(function () {
+                console.log("Sign-out successful.");
+                alert("Sign-out successful.");
+            }).catch(function (error) {
+                console.log("Sign-out Failed.");
+                alert("Sign-out Failed.");
+            })
+        }
+    </script>
+    <h1> ADD data to firebase</h1>
+    <input type="text" id="task">
+    <button onclick="writeUserData()"> Add </button>
+    <script>
+        function writeUserData() {
+            var task = document.getElementById('task').value;
+            
+            firebase.database().ref('tasks/').push({
+                Task: task
+            });
+            alert("data added");
+        }
+    </script>
+    
+
+
+
+</body>
+</html>
